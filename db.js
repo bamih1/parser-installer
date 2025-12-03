@@ -3,7 +3,6 @@ const path = require('path');
 const fs = require('fs');
 
 function initDb() {
-  // Создайте директорию, если её нет
   const dbDir = path.join(__dirname, 'data');
   if (!fs.existsSync(dbDir)) {
     fs.mkdirSync(dbDir, { recursive: true });
