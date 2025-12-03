@@ -1,1 +1,2 @@
 # parser-installer
+# Проверка работы
