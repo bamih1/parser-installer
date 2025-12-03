@@ -18,5 +18,5 @@ services:
       - NODE_ENV=production
       - PORT=3000
     volumes:
-      - ./parser.db:/app/parser.db
+      - ./data:/app/data
     restart: always
