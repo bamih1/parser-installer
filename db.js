@@ -1,9 +1,22 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const fs = require('fs');
 
 function initDb() {
-  const dbPath = path.join(__dirname, 'parser.db');
-  const db = new sqlite3.Database(dbPath);
+  // Создайте директорию, если её нет
+  const dbDir = path.join(__dirname, 'data');
+  if (!fs.existsSync(dbDir)) {
+    fs.mkdirSync(dbDir, { recursive: true });
+  }
+
+  const dbPath = path.join(dbDir, 'parser.db');
+  const db = new sqlite3.Database(dbPath, (err) => {
+    if (err) {
+      console.error('Database connection error:', err);
+    } else {
+      console.log('✓ Database connected:', dbPath);
+    }
+  });
 
   db.serialize(() => {
     db.run(`CREATE TABLE IF NOT EXISTS configs (

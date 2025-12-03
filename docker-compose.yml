@@ -1,5 +1,6 @@
 services:
   nginx:
+    container_name: parser-nginx
     image: nginx:alpine
     ports:
       - "80:80"
@@ -8,9 +9,10 @@ services:
       - ./frontend:/usr/share/nginx/html:ro
     restart: always
     depends_on:
-      - parser-backend
+      - api
 
-  parser-backend:
+  api:
+    container_name: parser-api
     build: .
     expose:
       - "3000"
@@ -18,5 +20,5 @@ services:
       - NODE_ENV=production
       - PORT=3000
     volumes:
-      - ./parser.db:/app/parser.db
+      - ./data:/app/data
     restart: always
